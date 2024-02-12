@@ -16,14 +16,14 @@ const donutSchema = new mongoose.Schema (
             required: true,
             default: false
         },
-        cost: {
+        price: {
             type: String,
             required: true,
         },
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
-			required: true,
+			
 		},
 	},
 	{

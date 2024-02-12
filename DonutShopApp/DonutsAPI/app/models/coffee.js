@@ -17,14 +17,14 @@ const coffeeSchema = new mongoose.Schema (
             enum: ['small', 'medium', 'large'],
             default: 'small'
         },
-        cost: {
+        price: {
             type: String,
             required: true,
         },
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
-			required: true,
+			ref: 'User'
+			
 		},
 	},
 	{

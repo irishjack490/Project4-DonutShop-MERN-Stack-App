@@ -1,6 +1,6 @@
 const express = require('express')
 const passport = require('passport')
-const Donut = require('../models/donut')
+const Coffee = require('../models/coffee')
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
@@ -24,33 +24,33 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // INDEX
-// GET /donuts
-router.get('/donuts', (req, res, next) => {
-	Donut.find()
+// GET /coffee
+router.get('/coffees', (req, res, next) => {
+	Coffee.find()
 		
-		.then((donuts) => {
+		.then((coffees) => {
 			
-			return donuts.map((donut) => donut.toObject())
+			return coffees.map((coffee) => coffee.toObject())
 		})
 		// respond with status 200 and JSON of the examples
-		.then((donuts) => res.status(200).json({ donuts: donuts }))
+		.then((coffees) => res.status(200).json({ coffees: coffees }))
 		// if an error occurs, pass it to the handler
 		.catch(next)
 })
 
 // SHOW
-// GET /donuts/5a7db6c74d55bc51bdf39793
-router.get('/donuts/:id', (req, res, next) => {
+// GET /coffees/5a7db6c74d55bc51bdf39793
+router.get('/coffees/:id', (req, res, next) => {
 	// req.params.id will be set based on the `:id` in the route
 	Donut.findById(req.params.id)
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "example" JSON
-		.then((donut) => res.status(200).json({ donut: donut.toObject() }))
+		.then((coffee) => res.status(200).json({ coffee: coffee.toObject() }))
 		// if an error occurs, pass it to the handler
 		.catch(next)
 })
 
-// CREATE- user won't be creating a donut in this version, user will create orders that will include donuts
+// CREATE- user won't be creating a coffee in this version, user will create orders that will include a coffee
 // POST /examples
 // router.post('/examples', requireToken, (req, res, next) => {
 // 	// set owner of new example to be current user
@@ -67,7 +67,7 @@ router.get('/donuts/:id', (req, res, next) => {
 // 		.catch(next)
 // })
 
-// UPDATE - User won't be updating donuts on this version
+// UPDATE - User won't be customizing coffees on this version
 // PATCH /examples/5a7db6c74d55bc51bdf39793
 // router.patch('/examples/:id', requireToken, removeBlanks, (req, res, next) => {
 // 	// if the client attempts to change the `owner` property by including a new
@@ -90,7 +90,7 @@ router.get('/donuts/:id', (req, res, next) => {
 // 		.catch(next)
 // })
 
-// DESTROY user won't be deleting donuts here, they will do this in their order
+// DESTROY user won't be deleting a coffee here, they will do this in their order
 // DELETE /examples/5a7db6c74d55bc51bdf39793
 // router.delete('/examples/:id', requireToken, (req, res, next) => {
 // 	Example.findById(req.params.id)
