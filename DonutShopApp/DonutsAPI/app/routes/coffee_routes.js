@@ -27,7 +27,6 @@ const router = express.Router()
 // GET /coffee
 router.get('/coffees', (req, res, next) => {
 	Coffee.find()
-		
 		.then((coffees) => {
 			
 			return coffees.map((coffee) => coffee.toObject())
@@ -42,7 +41,7 @@ router.get('/coffees', (req, res, next) => {
 // GET /coffees/5a7db6c74d55bc51bdf39793
 router.get('/coffees/:id', (req, res, next) => {
 	// req.params.id will be set based on the `:id` in the route
-	Donut.findById(req.params.id)
+	Coffee.findById(req.params.id)
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "example" JSON
 		.then((coffee) => res.status(200).json({ coffee: coffee.toObject() }))
