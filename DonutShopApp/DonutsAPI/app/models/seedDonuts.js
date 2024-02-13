@@ -10,17 +10,17 @@ const Donut = require('./donut')
 const db = require('../../config/db')
 
 const startDonuts = [
-    { name: 'Glazed Donut', description: 'thin glaze that coats the surface', glutenFree: false, price: '$1.50' },
-    { name: 'Jelly Donut', description: 'doughnut without a hole in the middle, with fruit-filling inside', glutenFree: false, price: '$2.00' },
-    { name: 'Cake Donut', description: 'Yummy Dense and crumbly', glutenFree: true, price: '$1.50' },
-    { name: 'Frosted Chocolate Donut', description: 'delicious chocolate frosting', glutenFree: false, price: '$1.50' },
-    { name: 'Frosted Pink Donut', description: 'delicious pink frosting', glutenFree: false, price: '$1.50' },
-    { name: 'Pink Sprinkled Donut', description: 'pink frosting with sprinkles', glutenFree: false, price: '$1.75' },
-    { name: 'Chocolate Sprinkled Donut', description: 'chocolate frosting with sprinkles', glutenFree: false, price: '$1.75' },
-    { name: 'Boston Cream', description: 'filled with custard and topped with a chocolate glaze', glutenFree: false, price: '$2.00' },
-    { name: 'Churro', description: 'Cinnamon sticks: coated with a traditional mixture of cinnamon sugar filled with dulce de leche.', glutenFree: false, price: '$1.00' },
-    { name: 'Beignet', description: 'French pastry dough, served dusted with powdered sugar', glutenFree: false, price: '$1.50' },
-    { name: 'Irish Donuts', description: 'Daugh made with flour and potatoes, coated with sugar', glutenFree: false, price: '$2.50' }
+    { name: 'Glazed Donut', description: 'thin glaze that coats the surface', glutenFree: false, price: 1.00 },
+    { name: 'Jelly Donut', description: 'doughnut without a hole in the middle, with fruit-filling inside', glutenFree: false, price: 2.00 },
+    { name: 'Cake Donut', description: 'Yummy Dense and crumbly', glutenFree: true, price: 1.00 },
+    { name: 'Frosted Chocolate Donut', description: 'delicious chocolate frosting', glutenFree: false, price: 1.00 },
+    { name: 'Frosted Pink Donut', description: 'delicious pink frosting', glutenFree: false, price: 1.00 },
+    { name: 'Pink Sprinkled Donut', description: 'pink frosting with sprinkles', glutenFree: false, price: 2.00 },
+    { name: 'Chocolate Sprinkled Donut', description: 'chocolate frosting with sprinkles', glutenFree: false, price: 2.00 },
+    { name: 'Boston Cream', description: 'filled with custard and topped with a chocolate glaze', glutenFree: false, price: 2.00 },
+    { name: 'Churro', description: 'Cinnamon sticks: coated with a traditional mixture of cinnamon sugar filled with dulce de leche.', glutenFree: false, price: 1.00 },
+    { name: 'Beignet', description: 'French pastry dough, served dusted with powdered sugar', glutenFree: false, price: 1.00 },
+    { name: 'Irish Donuts', description: 'Daugh made with flour and potatoes, coated with sugar', glutenFree: false, price: 2.00 }
 
 ]
 

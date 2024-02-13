@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node ./app/models/seedCoffees.js"
+    "seed": "node ./app/models/seedOrders.js"
   },
   "author": "Jackie Sechrist",
   "license": "ISC",

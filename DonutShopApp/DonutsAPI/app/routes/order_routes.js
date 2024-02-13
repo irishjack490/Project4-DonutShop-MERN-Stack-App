@@ -22,31 +22,29 @@ const router = express.Router()
 
 // Get all orders for authenticated user
 // // GET /orders
-router.get('/orders', requireToken,  (req, res, next) => {
-	Order.find({user: req.user})
-		.sort({createdAt: -1})
-		.exec((err, orders) => {
-			if (err) {
-				console.error('Error fetching order:'. err);
-				return res.status(500).json({error: 'Failed to fetch orders'});
-			}
-			res.status(200).json(orders);
-		});				
+router.get('/orders/:orderId', requireToken, async (req, res, next) => {
+    try {
+        const orders = await Order.find({ user: req.user }).sort({ createdAt: -1 }).exec();
+        res.status(200).json(orders);
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        res.status(500).json({ error: 'Failed to fetch orders' });
+    }
 });
 
 
 // CREATE ORDER
 // POST /order
-router.post('/order', requireToken, async (req, res, next) => {
+router.post('/order/create-order', requireToken, async (req, res, next) => {
 	// set owner of new example to be current user
 	try{
 		const { coffeeId, donutId, coffeeQuantity, donutQuantity, totalPrice} = req.body;
 	
 		const order = new Order({
-			user: req.user,
 			coffee: coffeeId,
 			coffeeQuantity: coffeeQuantity,
 			donut: donutId,
+			donutQuantity: donutQuantity,
 			totalPrice: totalPrice,
 		});
 		await order.save();

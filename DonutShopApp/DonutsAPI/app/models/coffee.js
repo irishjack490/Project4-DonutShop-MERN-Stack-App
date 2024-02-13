@@ -18,7 +18,7 @@ const coffeeSchema = new mongoose.Schema (
             default: 'small'
         },
         price: {
-            type: String,
+            type: Number,
             required: true,
         },
 		owner: {
