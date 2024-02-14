@@ -2,32 +2,25 @@ const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema(
 	{
-		donut : {
+		donuts : [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Donut',
-			required: true
-		},
+		
+		}],
 
-		donutQuantity: { 
-			type: Number,
-			default: 0
-		},
-	
-		coffee: {
+		coffees: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Coffee',
+			
+		}],
+		
+		active: {
+			type: Boolean,
+			default: true,
 			required: true
 		},
-		coffeeQuantity: {
-			type: Number,
-			default: 0
-		},
-
-		totalPrice: {
-			type: Number,
-			required: true,
-		},
-		user: {
+		
+		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			

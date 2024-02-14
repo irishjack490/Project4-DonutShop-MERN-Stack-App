@@ -46,11 +46,11 @@ const DonutsIndex = (props) => {
     }
 
     const donutCards = donuts.map(donut => (
-        <Card key={donut.id} style={{ width: '30%', margin: 5 }} >
+        <Card key={donut._id} style={{ width: '30%', margin: 5 }} >
             <Card.Header>{donut.name}</Card.Header>
             <Card.Body>
                 <Card.Text>
-                    <Link to={`/donuts/${donut.id}`} className='btn btn-info'>
+                    <Link to={`/donuts/${donut._id}`} className='btn btn-info'>
                          {donut.description}
                     </Link>
                 </Card.Text>

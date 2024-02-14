@@ -15,7 +15,7 @@ const startOrders = [
         coffee: coffeeId,
         coffeeQuantity: 1,
         totalPrice: 3.00,
-        user: userId,
+        onwer: ownerId,
         createdAt: new Date().toISOString()
 
     }

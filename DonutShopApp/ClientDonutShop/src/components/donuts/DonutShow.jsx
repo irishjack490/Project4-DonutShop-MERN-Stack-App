@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getOneDonut} from  '../../api/donut'
+import { getOneDonut } from  '../../api/donut'
 import LoadingScreen from '../shared/LoadingScreen'
 import { Container, Card, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
@@ -12,10 +12,12 @@ const DonutShow = (props) => {
 
     const [donut, setDonut] = useState(null)
 
+    const [updated, setUpdated] = useState(false)
+
     const navigate = useNavigate()
 
     useEffect(() => {
-        getOneDonut(donutId)
+        getOneDonut(donut._id)
             .then(res => setDonut(res.data.donut))
             .catch(err => {
                 msgAlert({
@@ -23,13 +25,14 @@ const DonutShow = (props) => {
                     message: messages.generalError,
                     variant: 'danger'
                 })
+                
             })
-    }, [])
+    }, [updated])
+    
 
     const addToCart = () => {
-        // Implement the logic to add the selected donut to the cart
-        // This might involve updating the cart state or making an API request
-        // You can use libraries like Redux or context for state management
+        // I will add some logic to add the selected donut to a cart
+    
     };
 
     if (!donut) {
@@ -38,7 +41,7 @@ const DonutShow = (props) => {
 
     return (
         <Container>
-            <Card>
+            <Card >
                 <Card.Img variant="top" src={donut.image} />
                 <Card.Body>
                     <Card.Title>{donut.name}</Card.Title>

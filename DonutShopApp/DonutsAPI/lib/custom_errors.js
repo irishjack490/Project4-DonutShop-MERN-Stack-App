@@ -39,18 +39,17 @@ class BadCredentialsError extends Error {
 // this method checks if the user trying to modify a resource is the owner of
 // resource, and throws an error if not
 
+// `requestObject` should be the actual `req` object from the route file
 const requireOwnership = (requestObject, resource) => {
-    // Extract the user ID from the resource
-    const userId = resource.user;
-
-    console.log('Request User ID:', requestObject.user._id);
-    console.log('Resource User ID:', userId);
-
-    // Check if the authenticated user is the owner of the resource
-    if (!requestObject.user._id.equals(userId)) {
-        throw new OwnershipError();
-    }
-};
+	// `requestObject.user` will be defined in any route that uses `requireToken`
+	// `requireToken` MUST be passed to the route as a second argument
+	const owner = resource.owner._id ? resource.owner._id : resource.owner
+	//  check if the resource.owner is an object in case populate is being used
+	//  if it is, use the `_id` property and if not, just use its value
+	if (!requestObject.user._id.equals(owner)) {
+		throw new OwnershipError()
+	}
+}
 
 // if the client passes an ID that isn't in the DB, we want to return 404
 const handle404 = (record) => {
