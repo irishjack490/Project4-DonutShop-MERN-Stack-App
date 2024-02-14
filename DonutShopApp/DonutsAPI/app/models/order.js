@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema(
 	{
-		donuts : {
+		donut : {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Donut',
 			required: true

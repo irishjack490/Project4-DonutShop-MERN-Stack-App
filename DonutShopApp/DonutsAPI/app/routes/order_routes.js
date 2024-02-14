@@ -22,92 +22,81 @@ const router = express.Router()
 
 // Get all orders for authenticated user
 // // GET /orders
-router.get('/orders/:orderId', requireToken, async (req, res, next) => {
-    try {
-        const orders = await Order.find({ user: req.user }).sort({ createdAt: -1 }).exec();
-        res.status(200).json(orders);
-    } catch (err) {
-        console.error('Error fetching orders:', err);
-        res.status(500).json({ error: 'Failed to fetch orders' });
-    }
-});
+router.get('/orders/:userId', requireToken, (req, res, next) => {
+		Order.find()
+			.populate('user')
+			.then((orders) => {
+				// `pets` will be an array of Mongoose documents
+				// we want to convert each one to a POJO, so we use `.map` to
+				// apply `.toObject` to each one
+				return orders.map((order) => order.toObject())
+			})
+			// respond with status 200 and JSON of the pets
+			.then((orders) => res.status(200).json({ orders: orders }))
+			// if an error occurs, pass it to the handler
+			.catch(next)
+	})
 
 
 // CREATE ORDER
 // POST /order
-router.post('/order/create-order', requireToken, async (req, res, next) => {
-	// set owner of new example to be current user
-	try{
-		const { coffeeId, donutId, coffeeQuantity, donutQuantity, totalPrice} = req.body;
-	
-		const order = new Order({
-			coffee: coffeeId,
-			coffeeQuantity: coffeeQuantity,
-			donut: donutId,
-			donutQuantity: donutQuantity,
-			totalPrice: totalPrice,
-		});
-		await order.save();
-		res.status(201).json(order);
-	} catch (error) {
-		console.error('Error creating order', error);
-		res.status(500).json({error: 'Failed to create order'});
-	}
-});
+router.post('/orders/create-order', requireToken, (req, res, next) => {
+	// set owner of new order to be current user
+	req.body.order.user = req.user.id
 
+	Order.create(req.body.order)
+		// respond to succesful `create` with status 201 and JSON of new "order"
+		.then((order) => {
+			res.status(201).json({ order: order.toObject() })
+		})
+		// if an error occurs, pass it off to our error handler
+		// the error handler needs the error message and the `res` object so that it
+		// can send an error message back to the client
+		.catch(next)
+	})
 
 // UPDATE
-// PUT /order/5a7db6c74d55bc51bdf39793
-router.put('/orders/:orderId', requireToken, async (req, res, next) => {
-	try {
-		const { coffeeId, donutId, coffeeQuantity, donutQuantity, totalPrice} = req.body;
-		//find oders by id
-		const order = await Order.findById(req.params.orderId);
-		//confirm order exists
-		if(!order){
-			return res.status(404).json({error: 'Order not found'});
-		}
-		//make sure authenticated user owns the order
-		if (order.user.toString() !== req.user.toString()){
-			return res.status(403).json({error: 'You are not athorized to update this order'})
-		}
-		//here update order with the new data
-		order.coffee = coffeeId;
-		order.coffeeQuantity = coffeeQuantity;
-		order.donut = donutId;
-		order.donutQuantity = donutQuantity;
-		order.totalPrice = totalPrice;
+// PUT /order/update-order/5a7db6c74d55bc51bdf39793
+router.put('/orders/update-order/:orderId', requireToken, removeBlanks, (req, res, next) => {
 
-		//save order to the db
-		await order.save();
+	delete req.body.order.owner
+	const orderId = req.params.orderId; 
 
-		res.status(200).json(order);
-	}   catch (error) {
-		console.error('Error updating order', error);
-		res.status(500).json({error: 'Failed to update order'})
-	}
+	Order.findById(orderId)
+		.then(handle404)
+		.then((order) => {
+			// pass the `req` object and the Mongoose record to `requireOwnership`
+			// it will throw an error if the current user isn't the owner
+			//requireOwnership(req, order)
+
+			// pass the result of Mongoose's `.update` to the next `.then`
+			return order.updateOne(req.body)
+		})
+		// if that succeeded, return 204 and no JSON
+		.then(() => res.sendStatus(204))
+		// if an error occurs, pass it to the handler
+		.catch(next)
 })
-// DELETE orders from user's order history and db
-// DELETE /order/5a7db6c74d55bc51bdf39793
-router.delete('/orders/:orderId', requireToken, (req, res, next) => {
-	Order.findById(req.params.orderId, (err, order) => {
-		if (err){
-			console.error('Error deleting order:', err);
-			return res.status(500).json({error: 'Failed to delete order'})
-		}
-		//Ensure order exists and that user owns it
-		if (!order || order.user.toString() !== req.user.toString()) {
-			return res.status(404).json({error: 'Order not found'});
-		}
-		//Delete order from db
-		order.remove((err) =>{
-			if (err) {
-				console.error('Error deleting order:', err);
-				return res.status(500).json({error: 'Failed to delete order'});
-			}
-			res.status(204).end();
-		});
-	});
+
+
+router.delete('/orders/delete-order/:userId/:orderId', requireToken, (req, res, next) => {
+    const orderId = req.params.orderId;
+	
+    Order.findById(orderId)
+		.populate('user')
+        .then(handle404)
+        .then((order) => {
+			console.log('Request User ID:', req.user._id)
+            console.log('Resource Owner ID:', order.user);
+            
+            requireOwnership(req, order);
+
+            return order.deleteOne(); 
+        })
+        .then(() => {
+            res.sendStatus(204);
+        })
+        .catch(next);
 });
 
-module.exports = router
+module.exports = router;
