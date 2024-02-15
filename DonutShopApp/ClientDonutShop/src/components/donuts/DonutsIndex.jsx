@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import { getAllDonuts } from "../../api/donut"
 
 
+
 //for rendering
 import LoadingScreen from '../shared/LoadingScreen'
 import { Card } from 'react-bootstrap'
@@ -18,7 +19,7 @@ const DonutsIndex = (props) => {
     //two pieces of state rendering
     const [donuts, setDonuts] = useState(null)
     const [error, setError] = useState(false)
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState([])
 
     const { msgAlert } = props
 
@@ -28,7 +29,7 @@ const DonutsIndex = (props) => {
             console.log('useEffect hook ran')
             setDonuts(res.data.donuts)
         })
-        .catch(error => {
+        .catch(err => {
             msgAlert({
                 heading: 'Oh no!',
                 message: messages.generalError,
@@ -38,7 +39,7 @@ const DonutsIndex = (props) => {
     })
 }, [])
         const addToOrder = (donut) => {
-            // Add the selected donut to the order array
+          
             setOrder([...order, donut]);
         };
 

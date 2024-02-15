@@ -23,6 +23,9 @@ const authenticatedOptions = (
             <Link to='/coffees' style={linkStyle}>
                 Coffees
             </Link>
+			<Nav.Item className='m-2'>
+		    <Link to='/orders/id' style={linkStyle}>View Orders</Link>
+        </Nav.Item>
         </Nav.Item>
 	</>
 )

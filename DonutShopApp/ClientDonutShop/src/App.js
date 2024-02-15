@@ -15,7 +15,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import DonutShow from './components/donuts/DonutShow'
 import CoffeesIndex from './components/coffees/CoffeesIndex'
 import CoffeeShow from './components/coffees/CoffeeShow'
-import OrdersIndex from './components/orders/OrdersIndex'
+import ShowOrder from './components/orders/ShowOrder'
 
 const App = () => {
 
@@ -91,7 +91,7 @@ const App = () => {
 				<CoffeeShow />
 			 } 
 			 />
-			<Route path="/orders" element={<OrdersIndex />} />
+			<Route path="/orders/:id" component = {ShowOrder} element={<ShowOrder user={user} msgAlert={msgAlert} />}  />
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert
