@@ -13,22 +13,32 @@ const authenticatedOptions = (
 				Change Password
 			</Link>
 		</Nav.Item>
-		<Nav.Item>
+		<Nav.Item className ='m-2'>
 			<Link to='sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
 		</Nav.Item>
+		{/* Add link to Coffees page */}
+        <Nav.Item className ='m-2'>
+            <Link to='/coffees' style={linkStyle}>
+                Coffees
+            </Link>
+        </Nav.Item>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
+		<Nav.Item className='m-2'>
+		    <Link to='Coffees' style={linkStyle}>Coffees</Link>
+        </Nav.Item>
         <Nav.Item className='m-2'>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className='m-2'>
 		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
         </Nav.Item>
+		
 	</>
 )
 

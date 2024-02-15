@@ -3,7 +3,7 @@ import axios from 'axios'
 
 //READ -> Index
 export const getAllCoffees = () => {
-    return axios(`${apiUrl}`/coffees)
+    return axios(`${apiUrl}/coffees`)
 }
 
 //READ -> Show

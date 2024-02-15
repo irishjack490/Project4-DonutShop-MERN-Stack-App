@@ -13,7 +13,9 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import DonutShow from './components/donuts/DonutShow'
-
+import CoffeesIndex from './components/coffees/CoffeesIndex'
+import CoffeeShow from './components/coffees/CoffeeShow'
+import OrdersIndex from './components/orders/OrdersIndex'
 
 const App = () => {
 
@@ -70,6 +72,26 @@ const App = () => {
                 <ChangePassword msgAlert={msgAlert} user={user} />
               </RequireAuth>}
           />
+			<Route 
+					path='donuts/:id'
+					component = {DonutShow}
+					element={
+						<DonutShow user={user} msgAlert={msgAlert}/>
+					}
+				/>  
+			<Route path='/coffees'
+			 component = {CoffeesIndex}
+			 element={
+				<CoffeesIndex />
+			 } 
+			 />
+			<Route path='/coffees/:id'
+			 component = {CoffeeShow}
+			 element={
+				<CoffeeShow />
+			 } 
+			 />
+			<Route path="/orders" element={<OrdersIndex />} />
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert
@@ -80,6 +102,7 @@ const App = () => {
 						id={msgAlert.id}
 						deleteAlert={deleteAlert}
 					/>
+					
 				))}
 			</Fragment>
 		)
