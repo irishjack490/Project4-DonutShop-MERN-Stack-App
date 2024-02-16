@@ -19,9 +19,9 @@ const DonutsIndex = (props) => {
     //two pieces of state rendering
     const [donuts, setDonuts] = useState(null)
     const [error, setError] = useState(false)
-    const [order, setOrder] = useState([])
+    //const [order, setOrder] = useState([])
 
-    const { msgAlert } = props
+    const { msgAlert, order, setOrder } = props
 
     useEffect(() => {
         getAllDonuts()
@@ -39,7 +39,7 @@ const DonutsIndex = (props) => {
     })
 }, [])
         const addToOrder = (donut) => {
-          
+            donut.type = 'donut'
             setOrder([...order, donut]);
         };
 

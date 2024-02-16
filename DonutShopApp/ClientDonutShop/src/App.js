@@ -12,15 +12,18 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import DonutsIndex from './components/donuts/DonutsIndex'
 import DonutShow from './components/donuts/DonutShow'
 import CoffeesIndex from './components/coffees/CoffeesIndex'
 import CoffeeShow from './components/coffees/CoffeeShow'
-import ShowOrder from './components/orders/ShowOrder'
+import OrdersIndex from './components/orders/OrdersIndex'
+import OrderShow from './components/orders/OrderShow'
 
 const App = () => {
 
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [order, setOrder] = useState([])
 
   console.log('user in app', user)
   console.log('message alerts', msgAlerts)
@@ -48,7 +51,7 @@ const App = () => {
 			<Fragment>
 				<Header user={user} />
 				<Routes>
-					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
+					<Route path='/' element={<Home msgAlert={msgAlert} user={user} order={order} setOrder={setOrder}/>} />
 					<Route
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
@@ -72,6 +75,12 @@ const App = () => {
                 <ChangePassword msgAlert={msgAlert} user={user} />
               </RequireAuth>}
           />
+		  	<Route path='/donuts'
+			 component = {DonutsIndex}
+			 element={
+				<DonutsIndex order={order} setOrder={setOrder} msgAlert={msgAlert}/>
+			 } 
+			 />
 			<Route 
 					path='donuts/:id'
 					component = {DonutShow}
@@ -82,7 +91,7 @@ const App = () => {
 			<Route path='/coffees'
 			 component = {CoffeesIndex}
 			 element={
-				<CoffeesIndex />
+				<CoffeesIndex order={order} setOrder={setOrder} msgAlert={msgAlert}/>
 			 } 
 			 />
 			<Route path='/coffees/:id'
@@ -91,8 +100,14 @@ const App = () => {
 				<CoffeeShow />
 			 } 
 			 />
-			<Route path="/orders/:id" component = {ShowOrder} element={<ShowOrder user={user} msgAlert={msgAlert} />}  />
-				</Routes>
+			<Route path='/orders' component = {OrdersIndex} element={<OrdersIndex orders={order} user={user} msgAlert={msgAlert} />}  />
+			
+			
+			<Route path='/orders/:id' component = {OrderShow} element={<OrderShow user={user} msgAlert={msgAlert} />
+		
+			}  />
+			</Routes>
+			
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert
 						key={msgAlert.id}

@@ -6,7 +6,7 @@ const passport = require('passport')
 // pull in Mongoose model for orders
 const Order = require('../models/order')
 const Coffee = require('../models/coffee')
-const Donut =require('../models/donut')
+const Donut = require('../models/donut')
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
@@ -46,6 +46,22 @@ router.get('/orders', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+router.get('/orders/mine', requireToken, (req, res, next) => {
+	Order.find({owner: req.user.id})
+		.populate(['coffees', 'donuts', 'owner'])
+		.then((orders) => {
+			// `orders` will be an array of Mongoose documents
+			// we want to convert each one to a POJO, so we use `.map` to
+			// apply `.toObject` to each one
+			return orders.map((order) => order.toObject())
+		})
+		// respond with status 200 and JSON of the orders
+		.then((orders) => res.status(200).json({ orders: orders }))
+		// if an error occurs, pass it to the handler
+		.catch(next)
+})
+
+
 // SHOW
 // GET /orders/5a7db6c74d55bc51bdf39793
 router.get('/orders/:id', (req, res, next) => {
@@ -61,10 +77,10 @@ router.get('/orders/:id', (req, res, next) => {
 
 // CREATE
 // POST /orders
-router.post('/orders/create-orders', requireToken, (req, res, next) => {
+router.post('/orders/createorder', requireToken, (req, res, next) => {
 	// set owner of new order to be current user
-	req.body.order.owner = req.user.id
-
+	//req.body.order.owner = req.user.id
+	
 	Order.create(req.body.order)
 		// respond to succesful `create` with status 201 and JSON of new "order"
 		.then((order) => {

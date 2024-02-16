@@ -11,10 +11,13 @@ const OrderShow = (props) => {
     const { user, msgAlert } = props
 
     const [order, setOrder] = useState(null)
+    
 
     const [updated, setUpdated] = useState(false)
 
     const navigate = useNavigate()
+
+   
 
     useEffect(() => {
         getOneOrder(id)
@@ -40,9 +43,10 @@ const OrderShow = (props) => {
             <Card >
                 <Card.Img variant="top"  />
                 <Card.Body>
-                    <Card.Title>{order.donuts}</Card.Title>
+                    <Card.Title>{order.owner}</Card.Title>
+                    <Card.Text>{order.donuts}</Card.Text>
                     <Card.Text>{order.coffees}</Card.Text>
-                    <Card.Text>{order.active}</Card.Text>
+                    
                 </Card.Body>
             </Card>
         </Container>

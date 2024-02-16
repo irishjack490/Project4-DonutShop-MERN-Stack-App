@@ -18,28 +18,38 @@ const authenticatedOptions = (
 				Sign Out
 			</Link>
 		</Nav.Item>
-		{/* Add link to Coffees page */}
-        <Nav.Item className ='m-2'>
+
+			<Nav.Item className='m-2'>
+		    <Link to='/orders' style={linkStyle}>Orders</Link>
+        </Nav.Item>
+		<Nav.Item className ='m-2'>
+            <Link to='/donuts' style={linkStyle}>
+                Donuts
+            </Link>
+		</Nav.Item>
+		<Nav.Item className ='m-2'>
             <Link to='/coffees' style={linkStyle}>
                 Coffees
             </Link>
-			<Nav.Item className='m-2'>
-		    <Link to='/orders/id' style={linkStyle}>View Orders</Link>
-        </Nav.Item>
         </Nav.Item>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
-		<Nav.Item className='m-2'>
-		    <Link to='Coffees' style={linkStyle}>Coffees</Link>
-        </Nav.Item>
+		
         <Nav.Item className='m-2'>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Item>
         <Nav.Item className='m-2'>
 		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
+        </Nav.Item>
+		<Nav.Item className='m-2'>
+		    <Link to='Donuts' style={linkStyle}>Donuts</Link>
+        </Nav.Item>
+		
+		<Nav.Item className='m-2'>
+		    <Link to='Coffees' style={linkStyle}>Coffees</Link>
         </Nav.Item>
 		
 	</>
@@ -59,7 +69,7 @@ const Header = ({ user }) => (
 	<Navbar bg='primary' variant='dark' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                Donuts App
             </Link>
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />

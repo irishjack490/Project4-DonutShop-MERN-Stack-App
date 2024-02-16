@@ -17,9 +17,10 @@ const CoffeesIndex = (props) => {
     // first we want two pieces of state to use for rendering
     const [coffees, setCoffees] = useState(null)
     const [error, setError] = useState(false)
+    //const [order, setOrder] = useState([])
 
     // we'll destructure our props
-    const { msgAlert } = props
+    const { msgAlert, order, setOrder} = props
 
     // useEffect is an effect hook, and it requires two args
 	// the first is a callback function
@@ -42,6 +43,11 @@ const CoffeesIndex = (props) => {
                 setError(true)
             })
 	}, [])
+
+    const addToOrder = (coffee) => {
+        coffee.type = 'coffee'
+        setOrder([...order, coffee]);
+    };
 
 
     if (error) {
@@ -70,6 +76,7 @@ const CoffeesIndex = (props) => {
                     </Link>
                 </Card.Text>
                         <Card.Footer>Price ${coffee.price}</Card.Footer>
+                        <button onClick={() => addToOrder(coffee)}>Add to Order</button>
             </Card.Body>
         </Card>
     ))

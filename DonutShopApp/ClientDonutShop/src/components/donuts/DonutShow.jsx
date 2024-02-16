@@ -11,8 +11,6 @@ const DonutShow = (props) => {
     const { user, msgAlert } = props
 
     const [donut, setDonut] = useState(null)
-    
-
     const [updated, setUpdated] = useState(false)
 
     const navigate = useNavigate()
