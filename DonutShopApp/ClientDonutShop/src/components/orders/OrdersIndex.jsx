@@ -73,6 +73,7 @@ const OrdersIndex = (props) => {
         
       }
     return (
+        
         <div className="container-md" style={ cardContainerLayout }>
             { orderCards }
             <button className='btn btn-info' onClick={handleCheckOut}>Checkout</button> 

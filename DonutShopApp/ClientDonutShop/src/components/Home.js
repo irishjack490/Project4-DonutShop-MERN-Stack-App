@@ -13,7 +13,7 @@ const Home = (props) => {
     useEffect(() => {
         if (user) {
             // User is logged in, check User Orders
-            const fetchOrders = () => {
+            
                 console.log('Donuts forever', user)
                 getActiveOrders(user)
                     .then(orders => {
@@ -41,9 +41,9 @@ const Home = (props) => {
                             variant: 'danger'
                         });
                     });
-            };
+            
 
-            fetchOrders();
+        
         }
     }, []);
 

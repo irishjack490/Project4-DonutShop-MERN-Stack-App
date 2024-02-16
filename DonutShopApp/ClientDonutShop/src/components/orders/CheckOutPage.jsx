@@ -1,7 +1,8 @@
 // Under construction, I have not implemented this
+import axios from 'axios';
 import React, { useState } from 'react';
 
-//Want to use these for later, I haven't passes this form as a prop yet
+// Want to use these for later, I haven't passes this form as a prop yet
 // import { useHistory } from 'react-router-dom';
 // import { createOrder } from "../../api/order"
 
@@ -9,6 +10,7 @@ const CheckoutPage = ({ orderDetails }) => {
   const [order, setOrder] = useState(orderDetails);
   const history = useHistory();
 
+  
   const handleSubmitOrder = () => {
     createOrder.submitOrder(order)
       .then(response => {
@@ -20,7 +22,7 @@ const CheckoutPage = ({ orderDetails }) => {
         alert('Error submitting order. Please try again later.');
       });
   };
-
+}
   return (
     <div>
       <h1>Checkout</h1>
@@ -30,6 +32,6 @@ const CheckoutPage = ({ orderDetails }) => {
       <button onClick={handleSubmitOrder}>Submit Order</button>
     </div>
   );
-};
+
 
 export default CheckoutPage;

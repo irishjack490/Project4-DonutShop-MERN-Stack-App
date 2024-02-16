@@ -92,6 +92,8 @@ router.post('/orders/createorder', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+
+
 //Add coffee
 //This should find an order that is active and owned by the user
 //The route should be /orders/add-coffee/:coffeeId
@@ -143,7 +145,15 @@ router.post('/orders/adddonut/:donutId', requireToken, (req, res, next) => {
 });
 
 
-
+//add to cart -Might use this
+// get cart items by user id and populates the cart
+// returns the user object with the cart array
+// router.get('/cart', requireToken, (req, res, next) => {
+//     User.findById(req.user.id)
+//       .populate('cart')
+//       .then(user => res.status(200).json({ cart: user.cart }))
+//       .catch(next);
+//   });
 
 // UPDATE
 // PATCH /orders/5a7db6c74d55bc51bdf39793
