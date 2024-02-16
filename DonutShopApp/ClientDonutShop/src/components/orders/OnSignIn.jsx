@@ -11,8 +11,8 @@ const OnSignIn = ({ user, msgAlert }) => {
             // User is logged in, check User Orders
             const fetchOrders = () => {
                 getActiveOrders(user)
-                    .then(response => {
-                        const activeOrder = response.data.order;
+                    .then(orders => {
+                        const activeOrder = orders.find(order => order.active)
                         if (activeOrder) {
                             setOrders([activeOrder]);
                         } else {

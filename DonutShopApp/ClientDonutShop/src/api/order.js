@@ -1,24 +1,25 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios';
 
-export const createOrder = (owner, newOrder) => {
-    console.log('create order:', owner, newOrder)
+
+export const createOrder = (user, newOrder) => {
+    console.log('create order:', user, newOrder)
   return axios({
     url:`${apiUrl}/orders/createorder`,
     method: 'POST',
-    headers: {Authorization: `Token ${owner.token}`,
+    headers: {Authorization: `Token ${user.token}`,
     'Content-Type': 'application/json'
     },
     data: {order: newOrder}
     });
 };
 
-export const getActiveOrders = (owner) => {
-    console.log('Get users orders', owner)
+export const getActiveOrders = (user) => {
+    console.log('Get users orders', user)
   return axios({
     url:`${apiUrl}/orders/mine`,
     method: 'GET',
-    headers: {Authorization: `Token ${owner.token}`,
+    headers: {Authorization: `Token ${user.token}`,
     'Content-Type': 'application/json'
         }
     

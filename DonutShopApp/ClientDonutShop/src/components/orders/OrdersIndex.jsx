@@ -56,7 +56,7 @@ const OrdersIndex = (props) => {
             <Card.Body>
                 <Card.Text>
                     <Link to={`/orders/${order._id}`} className='btn btn-info'>
-                        More details 
+                        More details
                     </Link>
                 </Card.Text>
                 
