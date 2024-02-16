@@ -10,6 +10,7 @@ const OnSignIn = ({ user, msgAlert }) => {
         if (user) {
             // User is logged in, check User Orders
             const fetchOrders = () => {
+                console.log('Donuts forever', user)
                 getActiveOrders(user)
                     .then(orders => {
                         const activeOrder = orders.find(order => order.active)
@@ -40,15 +41,15 @@ const OnSignIn = ({ user, msgAlert }) => {
 
             fetchOrders();
         }
-    }, [user, msgAlert]);
+    }, []);
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        if (orders.length > 0) {
-            // There is an active order
-            navigate('/checkout');
-        }
-    }, [orders, navigate]);
+    //     if (orders.length > 0) {
+    //         // There is an active order
+    //         navigate('/checkout');
+    //     }
+    // }, [orders, navigate]);
 
     return null; // This component doesn't render anything visible
 };

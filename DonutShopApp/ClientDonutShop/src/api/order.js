@@ -7,7 +7,7 @@ export const createOrder = (user, newOrder) => {
   return axios({
     url:`${apiUrl}/orders/createorder`,
     method: 'POST',
-    headers: {Authorization: `Token ${user.token}`,
+    headers: {Authorization: `Token token=${user.token}`,
     'Content-Type': 'application/json'
     },
     data: {order: newOrder}
@@ -19,7 +19,7 @@ export const getActiveOrders = (user) => {
   return axios({
     url:`${apiUrl}/orders/mine`,
     method: 'GET',
-    headers: {Authorization: `Token ${user.token}`,
+    headers: {Authorization: `Token token=${user.token}`,
     'Content-Type': 'application/json'
         }
     
@@ -28,9 +28,9 @@ export const getActiveOrders = (user) => {
 
 
 
-export const getAllOrders = () => {
-    return axios.post(`${apiUrl}/orders`)
-}
+// export const getAllOrders = () => {
+//     return axios.post(`${apiUrl}/orders`)
+// }
 
 export const updateOrder = (id) => {
     return axios.post(`${apiUrl}/orders/${id}`)

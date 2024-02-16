@@ -105,6 +105,7 @@ const App = () => {
 			
 			<Route path='/orders/:id' component = {OrderShow} element={<OrderShow user={user} msgAlert={msgAlert} />
 		
+			 
 			}  />
 			</Routes>
 			
