@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema(
 	{
+		owner: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User'
+			
+		},
 		donuts : [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Donut',
@@ -20,11 +25,6 @@ const orderSchema = new mongoose.Schema(
 			required: true
 		},
 		
-		owner: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
-			
-		},
         createdAt: {
             type: String,
             default: Date.now

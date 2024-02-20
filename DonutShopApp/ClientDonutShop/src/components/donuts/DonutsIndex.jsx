@@ -16,7 +16,7 @@ const cardContainerLayout = {
 }
 
 const DonutsIndex = (props) => {
-    //two pieces of state rendering
+    
     const [donuts, setDonuts] = useState(null)
     const [error, setError] = useState(false)
     //const [order, setOrder] = useState([])
@@ -38,10 +38,33 @@ const DonutsIndex = (props) => {
         setError(true)
     })
 }, [])
-        const addToOrder = (donut) => {
-            donut.type = 'donut'
-            setOrder([...order, donut]);
-        };
+
+const addToOrder = (donut) => {
+    console.log('Before adding donut to order:', order);
+    const updatedOrder = { ...order }; // Create a copy of the order object
+
+    // Check if the donuts array exists in the order object
+    if (!updatedOrder.donuts) {
+        updatedOrder.donuts= []; // Initialize the donuts array if it doesn't exist
+    }
+
+    // Add the coffee to the coffees array in the order object
+    updatedOrder.donuts.push(donut);
+
+    console.log('After adding donut to order:', updatedOrder);
+    setOrder(updatedOrder); // Update the state with the modified order object
+};
+
+
+// const addToOrder = (donut) => {
+//     console.log('Before adding to order:', order);
+//     donut.type = 'donut';
+//     setOrder((prevOrder) => {
+//         const updatedOrder = [...prevOrder, donut];
+//         console.log('After adding to order:', updatedOrder);
+//         return updatedOrder;
+//     });
+// };
 
     if (error) {
         return <LoadingScreen />

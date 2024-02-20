@@ -45,8 +45,19 @@ const CoffeesIndex = (props) => {
 	}, [])
 
     const addToOrder = (coffee) => {
-        coffee.type = 'coffee'
-        setOrder([...order, coffee]);
+        console.log('Before adding coffee to order:', order);
+        const updatedOrder = { ...order }; // Create a copy of the order object
+    
+        // Check if the coffees array exists in the order object
+        if (!updatedOrder.coffees) {
+            updatedOrder.coffees = []; // Initialize the coffees array if it doesn't exist
+        }
+    
+        // Add the coffee to the coffees array in the order object
+        updatedOrder.coffees.push(coffee);
+    
+        console.log('After adding coffee to order:', updatedOrder);
+        setOrder(updatedOrder); // Update the state with the modified order object
     };
 
 
@@ -63,8 +74,8 @@ const CoffeesIndex = (props) => {
     }
 
     // what do we display when our data comes through fine?
-    // we want to loop over the array of pets
-    // and produce one card for each and every pet we get back from the db
+    // we want to loop over the array of coffees
+    // and produce one card for each and every coffee we get back from the db
     const coffeeCards = coffees.map(coffee => (
         <Card key={coffee._id} style={{ width: '30%', margin: 5 }} >
             <Card.Header>{coffee.name}</Card.Header>

@@ -10,42 +10,7 @@ const Home = (props) => {
 	//console.log('props in home', props)
 	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            // User is logged in, check User Orders
-            
-                console.log('Donuts forever', user)
-                getActiveOrders(user)
-                    .then(orders => {
-                        const activeOrder = orders.find(order => order.active)
-                        if (activeOrder) {
-                            setOrder([activeOrder]);
-                        } else {
-                            createOrder(user)
-                                .then(newOrderResponse => {
-                                    setOrder([newOrderResponse.data]);
-                                })
-                                .catch(error => {
-                                    msgAlert({
-                                        heading: 'Oh no!',
-                                        message: 'Error creating new order',
-                                        variant: 'danger'
-                                    });
-                                });
-                        }
-                    })
-                    .catch(error => {
-                        msgAlert({
-                            heading: 'Oh no!',
-                            message: 'Error fetching active order',
-                            variant: 'danger'
-                        });
-                    });
-            
 
-        
-        }
-    }, []);
 
 	return (
 		<>

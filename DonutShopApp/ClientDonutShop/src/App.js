@@ -16,8 +16,8 @@ import DonutsIndex from './components/donuts/DonutsIndex'
 import DonutShow from './components/donuts/DonutShow'
 import CoffeesIndex from './components/coffees/CoffeesIndex'
 import CoffeeShow from './components/coffees/CoffeeShow'
-import OrdersIndex from './components/orders/OrdersIndex'
-import OrderShow from './components/orders/OrderShow'
+import OrdersPage from './components/orders/OrdersPage'
+
 
 const App = () => {
 
@@ -112,13 +112,9 @@ const App = () => {
 				<CoffeeShow />
 			 } 
 			 />
-			<Route path='/orders' component = {OrdersIndex} element={<OrdersIndex orders={order} user={user} msgAlert={msgAlert} />}  />
+			<Route path='/orders' component = {OrdersPage} element={<OrdersPage orders={order} user={user} msgAlert={msgAlert} />}  />
 			
-			
-			<Route path='/orders/:id' component = {OrderShow} element={<OrderShow user={user} msgAlert={msgAlert} />
-		
-			 
-			}  />
+			<Route path='/orders/mine' component = {OrdersPage} element={<OrdersPage orders={order} user={user} msgAlert={msgAlert} />}  />
 			</Routes>
 			
 				{msgAlerts.map((msgAlert) => (

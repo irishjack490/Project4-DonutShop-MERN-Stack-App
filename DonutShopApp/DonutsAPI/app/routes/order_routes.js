@@ -46,9 +46,12 @@ router.get('/orders', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+//GET users order after adding coffees and donuts
 router.get('/orders/mine', requireToken, (req, res, next) => {
-	Order.find({owner: req.user.id})
-		.populate(['coffees', 'donuts', 'owner'])
+	console.log('Authenticated User:', req.user);
+	console.log('User:', req.user);
+	Order.find({owner: req.user._id})
+		// .populate(['coffees', 'donuts', 'owner'])
 		.then((orders) => {
 			// `orders` will be an array of Mongoose documents
 			// we want to convert each one to a POJO, so we use `.map` to
@@ -62,60 +65,32 @@ router.get('/orders/mine', requireToken, (req, res, next) => {
 })
 
 
-// SHOW
-// GET /orders/5a7db6c74d55bc51bdf39793
-router.get('/orders/:id', (req, res, next) => {
-	// req.params.id will be set based on the `:id` in the route
-	Order.findById(req.params.id)
-		.populate(['coffees', 'donuts', 'owner'])
-		.then(handle404)
-		// if `findById` is succesful, respond with 200 and "order" JSON
-		.then((order) => res.status(200).json({ order: order.toObject() }))
-		// if an error occurs, pass it to the handler
-		.catch(next)
-})
-
-// CREATE
-// POST /orders
-router.post('/orders/createorder', requireToken, (req, res, next) => {
-	// set owner of new order to be current user
-	//req.body.order.owner = req.user.id
-	
-	Order.create(req.body.order)
-		// respond to succesful `create` with status 201 and JSON of new "order"
-		.then((order) => {
-			res.status(201).json({ order: order.toObject() })
-		})
-		// if an error occurs, pass it off to our error handler
-		// the error handler needs the error message and the `res` object so that it
-		// can send an error message back to the client
-		.catch(next)
-})
-
-
 
 //Add coffee
 //This should find an order that is active and owned by the user
 //The route should be /orders/add-coffee/:coffeeId
 //if the user is the owner of the order then push the coffeeId into the coffee order array
 router.post('/orders/addcoffee/:coffeeId', requireToken, (req, res, next) => {
-	const ownerId = req.user.id; 
+	console.log('Owner ID:', req.user._id);
+	const ownerId = req.user._id; 
    	const coffeeId = req.params.coffeeId;
 	
 	   Order.findOne({ owner: ownerId, active : true })
 	   .then((order) => {
 		   if (!order) {
-			   throw new Error('Order not found or not active');
+			return Order.create({ owner: ownerId, active: true });
 		   }
-		   
-		
-		   // If everything is fine, proceed to add the coffee
-		   order.coffees.push(coffeeId);
-		   return order.save();
+		   return order
+	
 	   })
 	   .then((order) => {
-		res.status(201).json({ order: order.toObject() })
+		order.coffees.push(coffeeId);
+		return order.save();
+		
 	})
+		.then((order) =>{
+			res.status(201).json({ order: order.toObject() })
+		})
 	   .catch(next);
 });
 
@@ -124,61 +99,44 @@ router.post('/orders/addcoffee/:coffeeId', requireToken, (req, res, next) => {
 //The route should be /orders/add-donut/:donutId
 //if the user is the owner of the order then push the donutId into the coffee order array
 router.post('/orders/adddonut/:donutId', requireToken, (req, res, next) => {
+	console.log('Owner ID:', req.user.id);
 	const ownerId = req.user.id; 
    	const donutId = req.params.donutId;
 	
 	   Order.findOne({ owner: ownerId, active : true })
 	   .then((order) => {
 		   if (!order) {
-			   throw new Error('Order not found or not active');
+			return Order.create({ owner: ownerId, active: true });
 		   }
-		   
-		
+		   return order;
+		})
 		   // If everything is fine, proceed to add the coffee
-		   order.donuts.push(donutId);
+		.then((order) =>{
+			order.donuts.push(donutId);
 		   return order.save();
-	   })
+		})
+		   
 	   .then((order) => {
-		res.status(201).json({ order: order.toObject() })
+			res.status(201).json({ order: order.toObject() })
 	})
 	   .catch(next);
-});
 
-
-//add to cart -Might use this
-// get cart items by user id and populates the cart
-// returns the user object with the cart array
-// router.get('/cart', requireToken, (req, res, next) => {
-//     User.findById(req.user.id)
-//       .populate('cart')
-//       .then(user => res.status(200).json({ cart: user.cart }))
-//       .catch(next);
-//   });
-
-// UPDATE
-// PATCH /orders/5a7db6c74d55bc51bdf39793
-router.patch('/orders/:id', requireToken, removeBlanks, (req, res, next) => {
-	// if the client attempts to change the `owner` property by including a new
-	// owner, prevent that by deleting that key/value pair
-	delete req.body.order.owner
-
-	Order.findById(req.params.id)
-		.then(handle404)
-		.then((order) => {
-			// pass the `req` object and the Mongoose record to `requireOwnership`
-			// it will throw an error if the current user isn't the owner
-			requireOwnership(req, order)
-
-			// pass the result of Mongoose's `.update` to the next `.then`
-			return order.updateOne(req.body.order)
-		})
-		// if that succeeded, return 204 and no JSON
-		.then(() => res.sendStatus(204))
-		// if an error occurs, pass it to the handler
-		.catch(next)
 })
 
-// DESTROY
+//GET Donut details- for OrderDonutDetails.jsx
+router.get('/orders/donuts/:id', (req, res, next) => {
+	const donutId = req.params.id
+	Donut.findById(donutId)
+		.then(donut => {
+			if(!donut) {
+				return res.status(404).json({error: 'Donut not found'})
+			}
+			res.json({donut})
+		})
+		.catch(next)	
+})
+
+
 // DELETE /orders/5a7db6c74d55bc51bdf39793
 router.delete('/orders/:id', requireToken, (req, res, next) => {
 	Order.findById(req.params.id)

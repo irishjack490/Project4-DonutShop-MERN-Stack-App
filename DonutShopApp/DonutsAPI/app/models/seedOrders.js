@@ -11,11 +11,9 @@ const coffeeId = '65ca7db77b22de6ae35a0a8a' //testing coffee
 
 const startOrders = [
     {   donuts: donutId,
-        donutQuantity: 1,
-        coffee: coffeeId,
-        coffeeQuantity: 1,
-        totalPrice: 3.00,
-        onwer: ownerId,
+        coffees: coffeeId,
+        active: true,
+        owner: userId,
         createdAt: new Date().toISOString()
 
     }
