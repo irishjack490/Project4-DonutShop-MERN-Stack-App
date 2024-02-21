@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardText } from 'react-bootstrap'; // Import Card component from react-bootstrap
-import OrderItem from './OrderItem'; // Component to display each order item
+//import OrderItem from './OrderItem'; // Component to display each order item
 
 const OrdersPage = ({ orders }) => {
     console.log('Orders:', orders);//this console log shows the structure of the orders array

@@ -50,9 +50,13 @@ const addToOrder = (donut) => {
 
     // Add the coffee to the coffees array in the order object
     updatedOrder.donuts.push(donut);
+    localStorage.setItem('order', JSON.stringify(updatedOrder));
+
 
     console.log('After adding donut to order:', updatedOrder);
+  
     setOrder(updatedOrder); // Update the state with the modified order object
+    console.log(localStorage.getItem('order'));
 };
 
 

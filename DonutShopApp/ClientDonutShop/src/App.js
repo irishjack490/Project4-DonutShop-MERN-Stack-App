@@ -24,6 +24,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
   const [order, setOrder] = useState([])
+  const [hasOrder, setHasOrder] = useState(false)
 
   useEffect(() => {
 	// access localStorage
@@ -59,9 +60,15 @@ const App = () => {
 		})
 	}
 
+	const updateOrderStatus = (hasPlacedOrder) => {
+		setHasOrder(hasPlacedOrder);
+	  };
+	
+
 		return (
+			
 			<Fragment>
-				<Header user={user} />
+				<Header user={user} hasOrder={hasOrder} updateOrderStatus={updateOrderStatus}/>
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} order={order} setOrder={setOrder}/>} />
 					<Route
