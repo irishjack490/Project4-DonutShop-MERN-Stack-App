@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardText, Button} from 'react-bootstrap'; // Import Card component from react-bootstrap
 
 
-const OrdersPage = ({ orders }) => {
+const OrdersPage = ({ orders, onDeleteItemClick, DeleteItem }) => {
     console.log('Orders:', orders);//this console log shows the structure of the orders array
 
     if (!orders || (!orders.donuts && !orders.coffees)) {
@@ -25,8 +25,13 @@ const OrdersPage = ({ orders }) => {
               {orders.donuts && orders.donuts.map((donut, index) => (
                 <Card key={`donut-${index}`} className="mb-3">
                     <Card.Body>
-                       {donut.name}
-                       ${donut.price}
+                      <div className="item-details">
+                        <div>
+                        <span>{donut.name}</span>
+                        <span>${donut.price}</span>
+                        </div>
+                       <DeleteItem type="donut" index={index} onDeleteItemClick={onDeleteItemClick} />
+                       </div>
                     </Card.Body>
                 </Card> 
               
@@ -35,10 +40,14 @@ const OrdersPage = ({ orders }) => {
               {orders.coffees && orders.coffees.map((coffee, index) => (
                   <Card key={`coffee-${index}`} className="mb-3">
                     <Card.Body>
-                   {coffee.name}
-                   {coffee.size}
-                  ${coffee.price}
-                  
+              <div className="item-details">
+                  <div>
+                    <span>{coffee.name}</span>
+                    <span>{coffee.size}</span>
+                    <span>${coffee.price}</span>
+                   </div>
+                  <DeleteItem type="coffee" index={index} onDeleteItemClick={onDeleteItemClick} />
+                  </div>
                     </Card.Body>
                       {/* <Card.Body>
                           <OrderItem order={coffee} orders={orders}/>

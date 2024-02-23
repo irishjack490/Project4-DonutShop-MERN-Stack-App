@@ -17,13 +17,18 @@ import DonutShow from './components/donuts/DonutShow'
 import CoffeesIndex from './components/coffees/CoffeesIndex'
 import CoffeeShow from './components/coffees/CoffeeShow'
 import OrdersPage from './components/orders/OrdersPage'
+import DeleteItem from './components/orders/DeleteItem';
 
 
 const App = () => {
 
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
-  const [order, setOrder] = useState([])
+  //const [order, setOrder] = useState([])
+  const [order, setOrder] = useState({
+    donuts: [],
+    coffees: [],
+  });
   const [hasOrder, setHasOrder] = useState(false)
 
   useEffect(() => {
@@ -64,7 +69,17 @@ const App = () => {
 		setHasOrder(hasPlacedOrder);
 	  };
 	
-
+	  const onDeleteItemClick = (type, index) => {
+		const updatedOrder = { ...order };
+	
+		if (type === 'donut') {
+		  updatedOrder.donuts.splice(index, 1);
+		} else if (type === 'coffee') {
+		  updatedOrder.coffees.splice(index, 1);
+		}
+	
+		setOrder(updatedOrder);
+	  };
 		return (
 			
 			<Fragment>
@@ -121,7 +136,7 @@ const App = () => {
 			 />
 			<Route path='/orders' component = {OrdersPage} element={<OrdersPage orders={order} user={user} msgAlert={msgAlert} />}  />
 			
-			<Route path='/orders/mine' component = {OrdersPage} element={<OrdersPage orders={order} user={user} msgAlert={msgAlert} />}  />
+			<Route path='/orders/mine' component = {OrdersPage} element={<OrdersPage orders={order} user={user} msgAlert={msgAlert} onDeleteItemClick={onDeleteItemClick} DeleteItem={DeleteItem} />}  />
 			</Routes>
 			
 				{msgAlerts.map((msgAlert) => (
