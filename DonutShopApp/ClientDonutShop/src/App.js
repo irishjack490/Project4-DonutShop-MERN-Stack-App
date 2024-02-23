@@ -40,6 +40,8 @@ const App = () => {
 		const foundUser = JSON.parse(loggedInUser)
 		// then set that saved user in state
 		setUser(foundUser)
+		//clear order for new user
+		setOrder({ donuts: [], coffees: [] })
 	}
 }, [])
 
@@ -48,6 +50,7 @@ const App = () => {
   const clearUser = () => {
     console.log('clear user ran')
     setUser(null)
+	setOrder({ donuts: [], coffees: [] })
   }
 
 	const deleteAlert = (id) => {

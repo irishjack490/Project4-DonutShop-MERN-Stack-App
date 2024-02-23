@@ -4,8 +4,25 @@ import { Card, CardText, Button} from 'react-bootstrap'; // Import Card componen
 
 const OrdersPage = ({ orders, onDeleteItemClick, DeleteItem }) => {
     console.log('Orders:', orders);//this console log shows the structure of the orders array
+      // Calculate the total price of the order
+      const calculateTotalPrice = () => {
+          let totalPrice = 0;
+  
+          // Iterate over the donuts array
+          orders.donuts.forEach(donut => {
+              totalPrice += donut.price;
+          });
+  
+          // Iterate over the coffees array
+          orders.coffees.forEach(coffee => {
+              totalPrice += coffee.price;
+          });
+  
+          return totalPrice;
+      };
+  
 
-    if (!orders || (!orders.donuts && !orders.coffees)) {
+    if (!orders || (orders.donuts.length === 0 && orders.coffees.length === 0)) {
       return (
         <div className="empty-orders">
           <h2>Your order is empty!</h2>
@@ -55,6 +72,10 @@ const OrdersPage = ({ orders, onDeleteItemClick, DeleteItem }) => {
                   </Card>
               ))}
           </div>
+    
+            {/* Display the total price */}
+            <p>Total Price: ${calculateTotalPrice()}</p>
+
       </div>
   );
 };

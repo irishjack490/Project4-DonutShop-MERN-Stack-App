@@ -20,6 +20,8 @@ const Home = (props) => {
 			<p>Choose from a variety of mouthwatering flavors and pair them with your favorite brew.</p>
 			<p>Whether you're craving a sweet treat or in need of a caffeine boost, we've got you covered.</p>
 			<p>Explore our menu, place your order, and treat yourself to a delightful experience!</p>
+
+			<p>Must log in to add items to order</p>
 		</div>
 			{/* <DonutsIndex order={order} setOrder={setOrder} msgAlert={msgAlert}/> */}
 			{/* <OnSignIn user={user} msgAlert={msgAlert}/> */}
