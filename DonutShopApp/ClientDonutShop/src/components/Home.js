@@ -14,9 +14,13 @@ const Home = (props) => {
 
 	return (
 		<>
-			<h2>Home Page</h2>
-
-			<h3></h3>
+		<div className="intro-section">
+			<h2>Welcome to the Donuts & Coffee Shop!</h2>
+			<p>Indulge your senses with our delectable range of freshly baked donuts and aromatic coffees.</p>
+			<p>Choose from a variety of mouthwatering flavors and pair them with your favorite brew.</p>
+			<p>Whether you're craving a sweet treat or in need of a caffeine boost, we've got you covered.</p>
+			<p>Explore our menu, place your order, and treat yourself to a delightful experience!</p>
+		</div>
 			{/* <DonutsIndex order={order} setOrder={setOrder} msgAlert={msgAlert}/> */}
 			{/* <OnSignIn user={user} msgAlert={msgAlert}/> */}
 		</>
