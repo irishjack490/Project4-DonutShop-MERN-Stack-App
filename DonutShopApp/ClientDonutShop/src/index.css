@@ -40,9 +40,15 @@ code {
 }
 
 .item-details div {
-  margin-bottom: 8px; /* Adjust margin as needed */
+  margin-bottom: 8px; 
 }
 
 .item-details span {
-  margin-right: 8px; /* Adjust margin as needed */
+  margin-right: 8px; 
+}
+
+.total-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
 }

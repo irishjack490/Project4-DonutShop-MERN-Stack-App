@@ -72,10 +72,9 @@ const OrdersPage = ({ orders, onDeleteItemClick, DeleteItem }) => {
                   </Card>
               ))}
           </div>
-    
-            {/* Display the total price */}
-            <p>Total Price: ${calculateTotalPrice()}</p>
-
+          <div className="total-price">
+                Total Price: ${calculateTotalPrice()}
+          </div>
       </div>
   );
 };
