@@ -29,7 +29,7 @@ const CoffeesIndex = (props) => {
 	// useEffect is called RIGHT after the FIRST render of the component
 	useEffect(() => {
 		getAllCoffees()
-			// .then(res => console.log('pets from axios call: \n', res.data.pets))
+			// .then(res => console.log('coffees from axios call: \n', res.data.coffees))
 			.then(res => {
 				console.log('use Effect hook ran')
 				setCoffees(res.data.coffees)
