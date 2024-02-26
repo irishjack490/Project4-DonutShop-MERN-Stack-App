@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed":  "node ./app/models/seedOrders.js"
-    
+    "seed": "node ./app/models/seedOrders.js"
   },
   "author": "Jackie Sechrist",
   "license": "ISC",
@@ -23,5 +22,8 @@
     "nodemon": "^3.0.3",
     "passport": "^0.6.0",
     "passport-http-bearer": "^1.0.1"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2"
   }
 }
